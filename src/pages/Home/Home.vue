@@ -1,13 +1,13 @@
 <template>
-    <div>
-      Home
-    </div>
+  <div>
+    Home
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'FooterGuide'
-  }
+export default {
+  name: 'FooterGuide'
+}
 </script>
 
 <style scoped>
