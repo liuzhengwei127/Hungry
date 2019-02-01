@@ -13,7 +13,9 @@
           <div :class="{on: loginWay}" @click="loginWay=true">
             <section class="login_message">
               <input type="tel" maxlength="11" placeholder="手机号" v-model="phone">
-              <button disabled="disabled" class="get_verification" :class="{ right_phone: rightPhone}">获取验证码</button>
+              <button :disabled="!rightPhone" class="get_verification" :class="{ right_phone: rightPhone}" @click.prevent="getCode">
+                {{ computeTime ? `已发送(${computeTime}s)` : '获取验证码'}}
+              </button>
             </section>
             <section class="login_verification">
               <input type="tel" maxlength="8" placeholder="验证码">
@@ -58,12 +60,30 @@ export default {
   data () {
     return {
       loginWay: true, // true代表短信登录，false代表密码登录
+      computeTime: 0, // 计时为0
       phone: '' // 手机号
     }
   },
   computed: {
     rightPhone () {
       return /^1\d{10}$/.test(this.phone)
+    }
+  },
+  methods: {
+    getCode () {
+      // 如果当前没有计时
+      if (!this.computeTime) {
+        // 启动倒计时
+        this.computeTime = 30
+        const intervalId = setInterval(() => {
+          this.computeTime--
+          if (this.computeTime <= 0) {
+            // 停止计时
+            clearInterval(intervalId)
+          }
+        }, 1000)
+        // 发送ajax请求（向指定手机号发送验证码短信）
+      }
     }
   }
 }
