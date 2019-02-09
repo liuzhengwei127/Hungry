@@ -40,7 +40,8 @@
               </section>
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
-                <img class="get_verification" src="./images/captcha.svg" alt="captcha">
+                <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha"
+                  @click="getCaptcha">
               </section>
             </section>
           </div>
@@ -97,11 +98,11 @@ export default {
         // 发送ajax请求（向指定手机号发送验证码短信）
       }
     },
-    // 异步登录
     showAlert (alertText) {
       this.Alertshow = true
       this.alertText = alertText
     },
+    // 异步登录
     login () {
       // 前台表单验证
       if (this.loginWay) {
@@ -129,9 +130,15 @@ export default {
         }
       }
     },
+    // 关闭警告框
     closeTip () {
       this.Alertshow = false
       this.alertText = ''
+    },
+    // 获取一个新的图片验证码
+    getCaptcha (event) {
+      // 每次指定的src值要不一样
+      event.target.src = 'http://localhost:4000/captcha?time=' + Date.now()
     }
   },
   components: {
