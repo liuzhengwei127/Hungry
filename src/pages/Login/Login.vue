@@ -162,7 +162,7 @@ export default {
       if (result.code === 0) {
         const user = result.data
         // 将user保存到vuex的state中
-
+        this.$store.dispatch('recordUser', user)
         // 去个人中心界面
         this.$router.replace('/profile')
       } else {
