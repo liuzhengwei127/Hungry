@@ -1,6 +1,6 @@
-# hungery
+# hungry
 
-> A vue.js project imitating eleme
+> A vue.js project imitating *eleme
 
 ## Build Setup
 
