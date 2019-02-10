@@ -13,7 +13,8 @@
     "test": {
       "presets": ["env", "stage-2"],
       "plugins": ["transform-vue-jsx", "transform-es2015-modules-commonjs", "dynamic-import-node",
-      ["component", [{
+      ["component", [
+        {
         "libraryName": "mint-ui",
         "style": true
       }
