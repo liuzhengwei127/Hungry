@@ -5,6 +5,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import './mock/mockServer'
+
 Vue.component(Button.name, Button) // <mt-button>
 
 new Vue({
