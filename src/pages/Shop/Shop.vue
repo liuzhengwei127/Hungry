@@ -16,13 +16,16 @@
 </template>
 
 <script>
-  import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
-  export default {
-    name: 'Shop',
-    components: {
-      HeaderTop
-    }
+import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
+export default {
+  name: 'Shop',
+  components: {
+    HeaderTop
+  },
+  mounted () {
+    this.$store.dispatch('getShopInfo')
   }
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
