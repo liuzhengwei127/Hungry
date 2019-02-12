@@ -66,8 +66,18 @@ export default {
       // 数据更新后执行
       this.$nextTick(() => {
         // 列表数据更新显示后执行
-        new BScroll('.menu-wrapper')
-        new BScroll('.foods-wrapper')
+        new BScroll('.menu-wrapper', {
+          scrollY: true,
+          // click: true
+        })
+        const foodsScroll = new BScroll('.foods-wrapper', {
+          probeType: 2 // 因为惯性滑动不会触发
+        })
+
+        // 给右侧列表绑定scroll监听
+        foodsScroll.on('scroll', ({x, y}) => {
+          console.log(x, y)
+        })
       })
     })
   },
