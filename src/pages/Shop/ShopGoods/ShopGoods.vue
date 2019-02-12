@@ -51,6 +51,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import BScroll from 'better-scroll'
 export default {
   name: 'ShopGoods',
   data () {
@@ -60,8 +61,15 @@ export default {
       food: {}, // 需要显示的food
     }
   },
-  mounted () {
-    this.$store.dispatch('getShopGoods')
+  mounted() {
+    this.$store.dispatch('getShopGoods', () => {
+      // 数据更新后执行
+      this.$nextTick(() => {
+        // 列表数据更新显示后执行
+        new BScroll('.menu-wrapper')
+        new BScroll('.foods-wrapper')
+      })
+    })
   },
   computed: {
     ...mapState(['goods'])
