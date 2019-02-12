@@ -72,7 +72,19 @@ export default {
     })
   },
   computed: {
-    ...mapState(['goods'])
+    ...mapState(['goods']),
+    // 计算得到当前分类的下标
+    currentIndex () { // 初始和相关数据发生了变化
+      // 得到条件数据
+      const {scrollY, tops} = this
+      // 根据条件计算产生一个结果
+      const index = tops.findIndex((top, index) => {
+        // scrollY>=当前top && scrollY<下一个top
+        return scrollY >= top && scrollY < tops[index + 1]
+      })
+      // 返回结果
+      return index
+    }
   },
   methods: {
     // 初始化滚动
