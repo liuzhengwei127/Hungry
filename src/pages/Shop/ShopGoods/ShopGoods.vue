@@ -61,7 +61,7 @@ export default {
       food: {}, // 需要显示的food
     }
   },
-  mounted() {
+  mounted () {
     this.$store.dispatch('getShopGoods', () => {
       // 数据更新后执行
       this.$nextTick(() => {
@@ -126,6 +126,18 @@ export default {
       // 3. 更新数据
       this.tops = tops
       console.log(tops)
+    },
+
+    clickMenuItem(index) {
+      // console.log(index)
+      // 使用右侧列表滑动到对应的位置
+
+      // 得到目标位置的scrollY
+      const scrollY = this.tops[index]
+      // 立即更新scrollY(让点击的分类项成为当前分类)
+      this.scrollY = scrollY
+      // 平滑滑动右侧列表
+      this.foodsScroll.scrollTo(0, -scrollY, 300)
     },
   }
 }
