@@ -47,7 +47,7 @@ export default {
   },
 
   [INCREMENT_FOOD_COUNT](state, {food}) {
-    if(!food.count) { // 第一次增加
+    if (!food.count) { // 第一次增加
       // food.count = 1  // 新增属性(没有数据绑定)
       /*
       对象
@@ -61,10 +61,10 @@ export default {
       food.count++
     }
   },
-  [DECREMENT_FOOD_COUNT](state, {food}) {
-    if(food.count) {// 只有有值才去减
+  [DECREMENT_FOOD_COUNT] (state, {food}) {
+    if (food.count) { // 只有有值才去减
       food.count--
-      if(food.count===0) {
+      if (food.count === 0) {
         // 将food从cartFoods中移除
         state.cartFoods.splice(state.cartFoods.indexOf(food), 1)
       }
