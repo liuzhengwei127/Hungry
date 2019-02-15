@@ -52,6 +52,8 @@
 <script>
 import {mapState} from 'vuex'
 import BScroll from 'better-scroll'
+import CartControl from '../../../components/CartControl/CartControl.vue'
+
 export default {
   name: 'ShopGoods',
   data () {
@@ -139,6 +141,9 @@ export default {
       // 平滑滑动右侧列表
       this.foodsScroll.scrollTo(0, -scrollY, 300)
     },
+  },
+  components: {
+    CartControl
   }
 }
 </script>
