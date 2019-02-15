@@ -53,6 +53,7 @@
 import {mapState} from 'vuex'
 import BScroll from 'better-scroll'
 import CartControl from '../../../components/CartControl/CartControl.vue'
+import Food from '../../../components/Food/Food.vue'
 
 export default {
   name: 'ShopGoods',
@@ -141,9 +142,18 @@ export default {
       // 平滑滑动右侧列表
       this.foodsScroll.scrollTo(0, -scrollY, 300)
     },
+
+    // 显示点击的food
+    showFood (food) {
+      // 设置food
+      this.food = food
+      // 显示food组件 (在父组件中调用子组件对象的方法)
+      this.$refs.food.toggleShow()
+    }
   },
   components: {
-    CartControl
+    CartControl,
+    Food
   }
 }
 </script>
