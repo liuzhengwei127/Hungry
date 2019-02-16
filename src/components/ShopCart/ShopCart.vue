@@ -44,8 +44,6 @@
 </template>
 
 <script>
-import { MessageBox } from 'mint-ui'
-import BScroll from 'better-scroll'
 import {mapState, mapGetters} from 'vuex'
 import CartControl from '../CartControl/CartControl.vue'
 
@@ -63,15 +61,15 @@ export default {
       const {totalPrice} = this
       const {minPrice} = this.info
 
-      return totalPrice>=minPrice ? 'enough' : 'not-enough'
+      return totalPrice >= minPrice ? 'enough' : 'not-enough'
     },
     payText () {
       const {totalPrice} = this
       const {minPrice} = this.info
-      if(totalPrice===0) {
+      if (totalPrice === 0) {
         return `￥${minPrice}元起送`
-      } else if(totalPrice<minPrice) {
-        return `还差￥${minPrice-totalPrice}元起送`
+      } else if (totalPrice < minPrice) {
+        return `还差￥${minPrice - totalPrice}元起送`
       } else {
         return '结算'
       }
@@ -79,34 +77,18 @@ export default {
 
     listShow () {
       // 如果总数量为0, 直接不显示
-      if(this.totalCount===0) {
+      if (this.totalCount === 0) {
         this.isShow = false
         return false
       }
-
-      if(this.isShow) {
-        this.$nextTick(() => {
-          // 实现BScroll的实例是一个单例
-          if(!this.scroll) {
-            this.scroll = new BScroll('.list-content', {
-              click: true
-            })
-          } else {
-            this.scroll.refresh() // 让滚动条刷新一下: 重新统计内容的高度
-          }
-
-        })
-      }
-
       return this.isShow
     }
   },
 
-
   methods: {
     toggleShow () {
       // 只有当总数量大于0时切换
-      if(this.totalCount>0) {
+      if (this.totalCount > 0) {
         this.isShow = !this.isShow
       }
     },
@@ -114,7 +96,7 @@ export default {
     clearCart () {
       MessageBox.confirm('确定清空购物车吗?').then(action => {
         this.$store.dispatch('clearCart')
-      }, () => {});
+      }, () => {})
     }
   },
   components: {
