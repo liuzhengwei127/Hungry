@@ -46,6 +46,7 @@
 <script>
 import {mapState, mapGetters} from 'vuex'
 import CartControl from '../CartControl/CartControl.vue'
+import BScroll from 'better-scroll'
 
 export default {
   data () {
@@ -80,6 +81,19 @@ export default {
       if (this.totalCount === 0) {
         this.isShow = false
         return false
+      }
+
+      if (this.isShow) {
+        this.$nextTick(() => {
+          // 实现BScroll的实例是一个单例
+          if (!this.scroll) {
+            this.scroll = new BScroll('.list-content', {
+              click: true
+            })
+          } else {
+            this.scroll.refresh() // 让滚动条刷新一下: 重新统计内容的高度
+          }
+        })
       }
       return this.isShow
     }
