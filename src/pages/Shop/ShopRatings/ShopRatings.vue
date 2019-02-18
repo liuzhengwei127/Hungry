@@ -73,67 +73,67 @@
 
 
 <script>
-  import BScroll from 'better-scroll'
-  import {mapState, mapGetters} from 'vuex'
-  import Star from '../../../components/Star/Star.vue'
+import BScroll from 'better-scroll'
+import {mapState, mapGetters} from 'vuex'
+import Star from '../../../components/Star/Star.vue'
 
-  export default {
+export default {
 
-    data () {
-      return {
-        onlyShowText: true, // 是否只显示有文本的
-        selectType: 2 , // 选择的评价类型: 0满意, 1不满意, 2全部
-      }
-    },
-    mounted () {
-      this.$store.dispatch('getShopRatings', () => {
-        this.$nextTick(() => {
-          new BScroll(this.$refs.ratings, {
-            click: true
-          })
+  data () {
+    return {
+      onlyShowText: true, // 是否只显示有文本的
+      selectType: 2 , // 选择的评价类型: 0满意, 1不满意, 2全部
+    }
+  },
+  mounted () {
+    this.$store.dispatch('getShopRatings', () => {
+      this.$nextTick(() => {
+        new BScroll(this.$refs.ratings, {
+          click: true
         })
       })
+    })
+  },
+
+  computed: {
+    ...mapState(['info', 'ratings']),
+    ...mapGetters(['positiveSize']),
+
+    filterRatings () {
+      // 得到相关的数据
+      const {ratings, onlyShowText, selectType} = this
+
+      // 产生一个过滤新数组
+      return ratings.filter(rating => {
+        const {rateType, text} = rating
+        /*
+          条件1:
+              selectType: 0/1/2
+              rateType: 0/1
+              selectType===2 || selectType===rateType
+          条件2
+              onlyShowText: true/false
+              text: 有值/没值
+              !onlyShowText || text.length>0
+         */
+        return (selectType===2 || selectType===rateType) && (!onlyShowText || text.length>0)
+      })
+    }
+  },
+
+  methods: {
+    setSelectType (selectType) {
+      this.selectType = selectType
     },
+    toggleOnlyShowText () {
+      this.onlyShowText = !this.onlyShowText
+    }
+  },
 
-    computed: {
-      ...mapState(['info', 'ratings']),
-      ...mapGetters(['positiveSize']),
-
-      filterRatings () {
-        // 得到相关的数据
-        const {ratings, onlyShowText, selectType} = this
-
-        // 产生一个过滤新数组
-        return ratings.filter(rating => {
-          const {rateType, text} = rating
-          /*
-            条件1:
-                selectType: 0/1/2
-                rateType: 0/1
-                selectType===2 || selectType===rateType
-            条件2
-                onlyShowText: true/false
-                text: 有值/没值
-                !onlyShowText || text.length>0
-           */
-          return (selectType===2 || selectType===rateType) && (!onlyShowText || text.length>0)
-        })
-      }
-    },
-
-    methods: {
-      setSelectType (selectType) {
-        this.selectType = selectType
-      },
-      toggleOnlyShowText () {
-        this.onlyShowText = !this.onlyShowText
-      }
-    },
-
-    components: {
-      Star
-    },
-  }
+  components: {
+    Star
+  },
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

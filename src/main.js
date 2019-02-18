@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import VueLazyload from 'vue-lazyload'
 import loading from './common/images/loading.gif'
+import './filters'
 
 import './mock/mockServer'
 
